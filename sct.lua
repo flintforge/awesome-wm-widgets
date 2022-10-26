@@ -20,7 +20,6 @@ local wibox	= require("wibox")
 local naughty	= require("naughty")
 local beautiful = require("beautiful")
 
-
 local function worker(user_args)
    
   local temperature = 6500 -- kelvins
@@ -45,9 +44,11 @@ local function worker(user_args)
 
   get_temperature()
 
+
   local update_graphic = function(widget, stdout, _, _, _)
      widget.colors = { colors.B }
   end
+
 
   sct:connect_signal(
      "button::press",
@@ -74,24 +75,25 @@ local function worker(user_args)
   end)
 
 
-
   local function updateTemperature(tpr)
      temperature = temperature +tpr
      awful.spawn("sct " .. temperature,false)
      get_temperature()
   end      
 
+
   local Sct = {
      widget = sct,
      update = updateTemperature --function(x) updateTemperature(x) end
   } 
+
   return Sct
   
 end
+
 
 local sct_widget = {}
 return setmetatable( sct_widget, {
       __call = function(_, ...) return worker(...) end
 })
-
 
