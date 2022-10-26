@@ -2,6 +2,7 @@
 -- Sct Widget for Awesome Window Manager
 -- [2021-02-25 Thu]
 -- @author: Phil Estival (pe [@t] 7d.nz)
+-- https://github.com/flintforge/awesome-wm-widgets
 
 -- - Set screen color temperature.
 -- - Requires sct.
