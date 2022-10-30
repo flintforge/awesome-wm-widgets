@@ -1,10 +1,13 @@
+
 -------------------------------------------------
 -- Xrandr Widget for Awesome Window Manager
--- only turns screens on and off
--- @author Phil Estival pe [@t] 7d.nz
+
+-- @author Phil Estival (pe [@t] 7d.nz)
 -- https://github.com/flintforge/awesome-wm-widgets
--- [2022-01-29 Sat] issue with bar at the bottom
--------------------------------------------------
+
+-- Turns screens on and off (only)
+-- [2022-01-29 Sat] issue when the bar at the bottom
+----------------------------------------------------
 
 local awful = require("awful")
 local wibox = require("wibox")
