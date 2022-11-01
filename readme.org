@@ -4,11 +4,12 @@
 
 ** Sct Widget 
 Set screen color temperature
-mouse wheel or left and right mouse clicks
-to adjust the temperature
+
+mouse wheel or left and right mouse clicks to adjust.
+
 middle click recalls the defaut value (6500K).
 
-Requires =sct=
+Requires =sct=.
 
 ** Turn monitors on/off
 To turn screens on and off with two clicks.
@@ -48,3 +49,5 @@ awful.screen.connect_for_each_screen(function(s)
 - [ ] make the widgets frame display up
       when the bar if at the bottom of the screen
 
+Cc: flintforge <phil.estival@free.fr>
+Cc: flintforge <phil.estival@free.fr>
