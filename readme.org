@@ -3,22 +3,19 @@
 [2022-10-25 Tue]
 
 ** Sct Widget 
-Set screen color temperature
-
-mouse wheel or left and right mouse clicks to adjust.
-
-middle click recalls the defaut value (6500K).
-
+Set screen color temperature.
+Mouse wheel or left and right mouse clicks to adjust.
+Middle click recalls the defaut value (6500K).
 Requires =sct=.
 
 ** Turn monitors on/off
 To turn screens on and off with two clicks.
-requires =xrandr=.
+Requires =xrandr=.
 You may turn off the last screen available this way ;)
 
 ** udisk ctl
 unfinished widget to turn on/off USB disks.
-Not to /unmount/ but to poweroff.
+Not to /unmount/ but to *poweroff*.
 
 ** Installation
 #+begin_src lua
@@ -48,6 +45,3 @@ awful.screen.connect_for_each_screen(function(s)
 ** TODO 
 - [ ] make the widgets frame display up
       when the bar if at the bottom of the screen
-
-Cc: flintforge <phil.estival@free.fr>
-Cc: flintforge <phil.estival@free.fr>
