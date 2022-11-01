@@ -4,7 +4,7 @@
 
 ** Sct Widget 
 Set screen color temperature.
-Mouse wheel or left and right mouse clicks to adjust.
+Mouse wheel or mouse button (L/R) clicks to adjust.
 Middle click recalls the defaut value (6500K).
 Requires =sct=.
 
@@ -14,7 +14,7 @@ Requires =xrandr=.
 You may turn off the last screen available this way ;)
 
 ** udisk ctl
-unfinished widget to turn on/off USB disks.
+Unfinished widget to turn on/off USB disks.
 Not to /unmount/ but to *poweroff*.
 
 ** Installation
