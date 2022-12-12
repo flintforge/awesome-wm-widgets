@@ -22,7 +22,7 @@ Not to /unmount/ but to *poweroff*.
 local xrandr 		  	 = require("awesome-wm-widgets.xrandr")
 local udiskctl 		  	 = require("awesome-wm-widgets.udiskctl")
 local Sct 			 = require("awesome-wm-widgets.sct")
-local sct = Sct() -- get access the widget and the update function 
+local sct = Sct() -- get access to the widget and the update function 
 
 awful.screen.connect_for_each_screen(function(s)
       ...
