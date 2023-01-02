@@ -15,7 +15,7 @@ You may turn off the last screen available this way ;)
 
 ** udisk ctl
 Unfinished widget to turn on/off USB disks.
-Not to /unmount/ but to *poweroff*.
+To /unmount/ and to *poweroff*.
 
 ** Installation
 #+begin_src lua
