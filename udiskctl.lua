@@ -22,16 +22,11 @@ local ICON = 'usb-tree.svg'
 local status_cmd = "lsblk -Pmino name,label,mountpoint,size,state,vendor,model "
 local usb_drives_cmd = 'for drive in $(lsblk -do name,tran | awk \'$2=="usb"{print $1}\'); do '..
    status_cmd..' /dev/$drive ; done'
-
 -- using series of spawn_easy_async is too hairy without a queue
---local usb_drives_cmd = 'lsblk -do name,tran | awk \'$2=="usb"{print $1}\''
---local usb_partitions_cmd = "lsblk -Pmino name,label,mountpoint,size,state,vendor,model "
-
 local poweroff_cmd = "udisksctl power-off -b "
 local mount_cmd    = "udisksctl mount -b "
 local unmount_cmd  = "udisksctl unmount -b "
 local open_cmd     = "xdg-open "
-
 
 local MARGINS = 4
 local VSPACE = 4
@@ -44,6 +39,7 @@ local function notify(message)
       title = 'Error',
       text = message}
 end
+
 local function spawncmd(cmd)
    spawn.easy_async(
       cmd,
@@ -54,22 +50,20 @@ local function spawncmd(cmd)
 end
 
 local function mount(part)
-   spanwcmd( mount_cmd.."/dev/"..part.name )
-end
+   spawncmd( mount_cmd.."/dev/"..part.name ) end
 
 local function umount(part)
-   spawncmd( unmount_cmd.."/dev/"..part.name )
-end
+   spawncmd( unmount_cmd.."/dev/"..part.name ) end
 local function poweroff(drive)
    notify("ok powering off")
    --spawn(power_off_cmd)
 end
 
 local function open(path)
-   spawncmd( open_cmd..path )
-end
+   spawncmd( open_cmd..path ) end
 
 local function confirm(text,next)
+   -- I need to get a pure wibox confirmation dialog
    awful.prompt.run {
       prompt       = text.."(type 'y' to confirm)? ",
       textbox      = awful.screen.focused().mypromptbox.widget,
@@ -129,58 +123,14 @@ local udiskswidget = wibox.widget {
 }
 
 
-
--- local function makebox(label,checked, click)
---    return wibox.widget {
---       {{
--- 	    { {
--- 		  id = 'checkbox',
--- 		  checked       = checked,
--- 		  color         = beautiful.bg_normal,
--- 		  paddings      = 2,
--- 		  shape         = gears.shape.square,
--- 		  check_color   = "#0A0", -- beautiful.fg_normal,
--- 		  forced_width  = 15,
--- 		  forced_height = HEIGHT,
--- 		  border_color  = beautiful.border_focus,
--- 		  border_width  = 1,
--- 		  widget        = wibox.widget.checkbox
--- 	      },
--- 	       valign = 'center',
--- 	       layout = wibox.container.place,
--- 	    },
--- 	    spacing = SPACING,
--- 	    {  {
--- 		  id = 'name',
--- 		  --markup = '<b>' .. package['name'] .. '</b>',
--- 		  markup = label, -- mtpt and disk .. "/" .. mtpt or disk,
--- 		  widget = wibox.widget.textbox
--- 	       },
--- 	       halign = 'left',
--- 	       layout = wibox.container.place
--- 	    },
--- 	    spacing = SPACING,
--- 	    layout = wibox.layout.fixed.horizontal
---        },
--- 	 margins = MARGINS,
--- 	 layout = wibox.container.margin
---       },
---       id = 'row',
---       bg = beautiful.bg_normal,
---       widget = wibox.container.background,
---       click = click
---    }
--- end
-
-
 local function make_checkbox(partition, active, phy, drive)
    local shape
    local width
-   if phy then
-      width=15
+   if phy then -- physical drives dispay a rounded CB
+      width = 15
       shape = gears.shape.rounded_bar
-   else
-      witdh=25
+   else -- their partitions a square one
+      witdh = 25
       shape = gears.shape.square
    end
 
@@ -205,8 +155,7 @@ local function make_checkbox(partition, active, phy, drive)
 	       self:set_checked(not self.checked)
 	    end
 	    confirm("unmount paritions and power off drive ? ", poff)
-
-	    --mount(d)
+	    -- then refresh display / rebuild widget ?
 	 else
 	    if drive
 	    then
