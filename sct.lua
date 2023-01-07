@@ -21,11 +21,11 @@ local naughty	= require("naughty")
 local beautiful = require("beautiful")
 
 local function worker(user_args)
-   
+
   local temperature = 6500 -- kelvins
 
   local text = wibox.widget {
-      id = "txt",    
+      id = "txt",
       font   = "Inconsolata Medium 13",
       widget = wibox.widget.textbox
   }
@@ -44,56 +44,45 @@ local function worker(user_args)
 
   get_temperature()
 
-
   local update_graphic = function(widget, stdout, _, _, _)
      widget.colors = { colors.B }
   end
 
+  local function updateTemperature(tpr)
+     temperature = temperature + tpr
+     if(temperature<1000) then temperature = 1000 end
+     if(temperature>10000) then temperature = 10000 end
+     awful.spawn("sct " .. temperature,false)
+     get_temperature()
+  end
+
+  local function defaultTemperature()
+     temperature = 6400
+     awful.spawn("sct", false)
+     get_temperature()
+  end
 
   sct:connect_signal(
      "button::press",
      function(_, _, _, button)
 	if (button == 3 or button==5) then
-		   temperature = temperature - 500
-		   if(temperature<1000) then temperature = 1000
-		   else
-			  awful.spawn("sct " .. temperature,false)
-			  get_temperature()
-		   end
+	   updateTemperature( -500 )
 	elseif (button == 1 or button==4) then
-		   temperature = temperature + 500
-		   if(temperature>10000) then temperature = 10000
-		   else
-			  awful.spawn("sct " ..  temperature, false)
-			  get_temperature()
-		   end
+	   updateTemperature(  500 )
 	elseif (button == 2) then
-		   temperature = 6400
-		   awful.spawn("sct", false)
-		   get_temperature()
+	   defaultTemperature()
 	end
   end)
 
-
-  local function updateTemperature(tpr)
-     temperature = temperature +tpr
-     awful.spawn("sct " .. temperature,false)
-     get_temperature()
-  end      
-
-
   local Sct = {
      widget = sct,
-     update = updateTemperature --function(x) updateTemperature(x) end
-  } 
-
+     update = updateTemperature,
+     defaultTemperature = defaultTemperature
+  }
   return Sct
-  
 end
-
 
 local sct_widget = {}
 return setmetatable( sct_widget, {
       __call = function(_, ...) return worker(...) end
 })
-
