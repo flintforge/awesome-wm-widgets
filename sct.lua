@@ -10,15 +10,11 @@
 --   to adjust the temperature,
 --   middle click recalls the defaut value at 6500K
 
--- todo : persist through sessions
 -----------------------------------------------------
 
 local awful	= require("awful")
 local spawn	= require("awful.spawn")
-local watch	= require("awful.widget.watch")
 local wibox	= require("wibox")
-local naughty	= require("naughty")
-local beautiful = require("beautiful")
 
 local function worker(user_args)
 
