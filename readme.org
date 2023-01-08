@@ -1,17 +1,25 @@
 
 * Three widgets for Awesome WM
-** Sct Widget 
+
+[[./screenshot.png]]
+
+** Sct Widget
 Set screen color temperature.
 Mouse wheel or mouse button (L/R) clicks to adjust.
 Middle click recalls the defaut value (6500K).
 Requires =sct=.
 
-** Turn monitors on/off
+** Monitors on/off
+[[./awesome-wm-xrandr.png]]
+
 To turn screens on and off with two clicks.
 Requires =xrandr=.
+
 You may turn off the last screen available this way ;)
 
 ** udisk ctl
+[[./awesome-wm-udiskctl.png]]
+
 Unfinished widget to turn on/off USB disks.
 To /unmount/ and to *poweroff*.
 
@@ -47,4 +55,4 @@ awful.screen.connect_for_each_screen(function(s)
 
 ** TODO TODO
 - [ ] make the widgets frame display up
-      when the bar if at the bottom of the screen
+      when the bar is at the bottom of the screen
