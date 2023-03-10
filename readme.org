@@ -35,6 +35,8 @@ local udiskctl 		  	 = require("awesome-wm-widgets.udiskctl")
 local Sct 			 = require("awesome-wm-widgets.sct")
 local sct = Sct() -- get access to the widget and the update function 
 
+local sct = Sct(5000) -- give the desired default temperature 
+
 awful.screen.connect_for_each_screen(function(s)
       ...
       -- Add widgets to the wibox
