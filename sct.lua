@@ -18,11 +18,11 @@ local wibox = require("wibox")
 
 local function worker(...)
 
-	 local arg = {n=select('#',...),...}
-	 local default_temp = arg[1]
-	 if (default_temp == nil) then
-			default_temp = 6400
-	 end
+   local arg = {n=select('#',...),...}
+   local default_temp = arg[1]
+   if (default_temp == nil) then
+      default_temp = 6400
+   end
    local temperature = default_temp -- kelvins
 
    local text = wibox.widget {
@@ -92,7 +92,7 @@ end
 
 local sct_widget = {}
 return setmetatable(
-	 sct_widget, {
-			__call = function(_, ...) return worker(...) end
-							 }
+   sct_widget, {
+      __call = function(_, ...) return worker(...) end
+               }
 )
