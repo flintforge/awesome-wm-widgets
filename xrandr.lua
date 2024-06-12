@@ -25,16 +25,16 @@ local HEIGHT = 15
 local actives = {}
 
 --- To show a warning messages
-local function show_warning(message)
+local function message(message)
 	 naughty.notify{
-			preset = naughty.config.presets.critical,
-			title = 'Warning',
+			bg = "#CCCCCC",
+			fg = "#000000",
+			title = 'notice',
 			text = message}
 end
 
 -- only left rotation
 local function rotate_screen(output, rotate)
-	 show_warning("" .. (output or "!") .. (rotate and "true" or "false"))
    spawn.easy_async("xrandr --output " .. output .. " --rotate " ..(rotate and "left" or "normal"))
 end
 
@@ -90,7 +90,7 @@ local function worker(user_args)
 	 local function rebuild_widget(containers, errors, _, _)
 
 			if errors ~= '' then
-				 show_warning(errors)
+				 message(errors)
 				 return
 			end
 
@@ -103,9 +103,7 @@ local function worker(user_args)
 				 actives[li] = true
 				 n_actives = n_actives + 1
 			end
-			-- show_warning(type(actives))
 
-			-- show_warning( n_actives )
 			for line in containers:gmatch("[^\r\n]+") do
 				 --for screen,state in containers:match("(.*)%s(.*)%s") do
 				 local screen, state = line:match("(.*)%s(.*)")
@@ -118,7 +116,7 @@ local function worker(user_args)
 													 checked				= actives[screen],
 													 color					= beautiful.bg_normal,
 													 paddings				= 2,
-													 shape					= gears.shape.rectangle,
+													 --shape					= gears.shape.rectangle,
 													 check_color		=  n_actives> 1 and beautiful.fg_normal
 															or beautiful.bg_urgent,
 													 forced_width		= 15,
@@ -156,22 +154,15 @@ local function worker(user_args)
 										 --if not a.checked
 										 n_actives = n_actives + n
 							 end,
-							 rotate_screen = function(self, checked,_,button)
+							 screen_rotation = function(self, checked,_,button)
 									local a = self:get_children_by_id('checkbox')[1]
-									-- a:set_checked(true)
-									-- a:set_check_shape(gears.shape.losange)
-									--a:set_check_shape(gears.shape.square)
-									rotate_screen(screen, a.check_shape == gears.shape.losange)
-									if not a.check_shape == gears.shape.losange then
+									rotate_screen(screen, not(a.check_shape == gears.shape.losange))
+									if not (a.check_shape == gears.shape.losange) then
 										 a:set_check_shape(gears.shape.losange)
-										 --a:set_check_color("#0F0")
 									else
-										 rotate_screen(screen, false)
 										 a:set_check_shape(gears.shape.square)
-										 --a:set_check_color("#F00")
 									end
 							 end,
-
 						}
 
 						row:connect_signal("mouse::enter", function(c)
@@ -186,7 +177,7 @@ local function worker(user_args)
 									if button==1 then
 										 c:activate_screen()
 									elseif button==3 then
-										 c:rotate_screen()
+										 c:screen_rotation()
 									end
 						end )
 

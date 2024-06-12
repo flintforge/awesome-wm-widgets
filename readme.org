@@ -9,13 +9,17 @@ Mouse wheel or mouse button (L/R) clicks to adjust.
 Middle click recalls the defaut value (6500K).
 Requires =sct=.
 
-** Monitors on/off
+** Monitors on/off + rotation
 [[./awesome-wm-xrandr.png]]
 
 To turn screens on and off with two clicks.
 Requires =xrandr=.
 
 You may turn off the last screen available this way ;)
+
+Right button will rotate the screen left.
+Right click twice to restore back to normal.
+You may need to reset the compositor.
 
 ** udisk ctl
 [[./awesome-wm-udiskctl.png]]
