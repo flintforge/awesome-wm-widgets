@@ -1,10 +1,9 @@
--------------------------------------------------
+---------------------------------------------------
 -- Xrandr Widget for Awesome Window Manager
 
 -- @author Phil Estival
 -- https://github.com/flintforge/awesome-wm-widgets
-
--------------------------------------------------
+---------------------------------------------------
 
 local awful = require("awful")
 local wibox = require("wibox")
@@ -25,8 +24,7 @@ local SPACINGS = 4
 local HEIGHT = 15
 local actives = {}
 
-
---- Utility function to show warning messages
+--- To show a warning messages
 local function show_warning(message)
 	 naughty.notify{
 			preset = naughty.config.presets.critical,
@@ -34,6 +32,7 @@ local function show_warning(message)
 			text = message}
 end
 
+-- only left rotation
 local function rotate_screen(output, rotate)
 	 show_warning("" .. (output or "!") .. (rotate and "true" or "false"))
    spawn.easy_async("xrandr --output " .. output .. " --rotate " ..(rotate and "left" or "normal"))
@@ -48,13 +47,6 @@ function in_table ( t, e )
 			if (v==e) then return true end
 	 end
 	 return false
-end
-
-
-local function ellipsize(text, length)
-	 return (text:len() > length and length > 0)
-			and text:sub(0, length - 3) .. '...'
-			or text
 end
 
 local wibox_popup = wibox {
